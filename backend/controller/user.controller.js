@@ -2,6 +2,7 @@ const { response } = require("express");
 const userModel = require("../models/user.model");
 const userService = require("../services/user.service");
 const { validationResult } = require("express-validator");
+const blacklistTokenModel = require("../models/blacklistToken.model");
 
 module.exports.registerUser = async (request, response, next) => {
   const errors = validationResult(request);
@@ -48,4 +49,13 @@ module.exports.loginUser = async (request, response, next) => {
 
 module.exports.getUserProfile = async (request, response, next) => {
   response.status(200).json(request.user);
+};
+
+module.exports.logoutUser = async (request, response, next) => {
+  response.clearCookie("token");
+  const token =
+    request.cookies.token || request.headers.authorization.split(" ")[1];
+
+  await blacklistTokenModel.create({ token });
+  response.status(200).json({ message: "User Logout" });
 };

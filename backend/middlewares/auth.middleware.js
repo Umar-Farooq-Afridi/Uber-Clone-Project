@@ -6,6 +6,11 @@ module.exports.authUser = async (request, response, next) => {
   const token =
     request.cookies.token || request.headers.authorization?.split(" ")[1];
 
+  const isBlackListed = await userModel.findOne({ token: token });
+  if (isBlackListed) {
+    return response.status(401).json({ message: "Unauthorized" });
+  }
+
   if (!token) {
     return response.status(401).json({ message: "Unauthorized" });
   }
