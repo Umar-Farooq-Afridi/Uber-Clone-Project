@@ -1,3 +1,4 @@
+const { response } = require("express");
 const userModel = require("../models/user.model");
 const userService = require("../services/user.service");
 const { validationResult } = require("express-validator");
@@ -41,5 +42,10 @@ module.exports.loginUser = async (request, response, next) => {
   }
 
   const token = user.generateAuthToken();
+  response.cookie("token", token);
   response.status(200).json({ token, user });
+};
+
+module.exports.getUserProfile = async (request, response, next) => {
+  response.status(200).json(request.user);
 };
