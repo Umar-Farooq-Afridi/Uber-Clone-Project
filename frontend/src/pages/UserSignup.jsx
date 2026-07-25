@@ -1,5 +1,7 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { UserDataContext } from "../context/UserContext";
 
 function UserSignup() {
   const [firstName, setFirstName] = useState("");
@@ -7,18 +9,32 @@ function UserSignup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [userData, setUserData] = useState({});
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserDataContext);
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
-    setUserData({
-      fullName: {
-        firstName: firstName,
-        lastName: lastName,
+    const newUser = {
+      fullname: {
+        firstname: firstName,
+        lastname: lastName,
       },
       email: email,
       password: password,
-    });
+    };
+
+    const response = await axios.post(
+      `${import.meta.env.VITE_BASE_URL}/users/register`,
+      newUser,
+    );
+
+    if (response.status === 201) {
+      const data = response.data;
+      setUser(data.user);
+
+      localStorage.setItem("token", data.token);
+      navigate("/home");
+    }
 
     setFirstName("");
     setLastName("");
@@ -46,7 +62,7 @@ function UserSignup() {
               className="bg-[#eeeee] w-1/2 rounded px-4 py-2 border text-lg placeholder:text-base"
               required
               type="text"
-              placeholder="First Name"
+              placeholder="First name"
               value={firstName}
               onChange={(e) => {
                 setFirstName(e.target.value);
@@ -57,7 +73,7 @@ function UserSignup() {
               className="bg-[#eeeee] w-1/2 rounded px-4 py-2 border text-lg placeholder:text-base"
               required
               type="text"
-              placeholder="Last Name"
+              placeholder="Last name"
               value={lastName}
               onChange={(e) => {
                 setLastName(e.target.value);
@@ -90,7 +106,7 @@ function UserSignup() {
           />
 
           <button className="bg-[#111] text-white font-semibold mb-3 rounded px-4 py-2 w-full text-lg placeholder:text-base">
-            Login
+            Create account
           </button>
 
           <p className="text-center">
