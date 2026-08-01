@@ -1,3 +1,5 @@
+import uberLogo from "/uber-logo.svg";
+
 import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -108,7 +110,7 @@ function Home() {
     <div className="relative h-screen overflow-hidden">
       <img
         className="absolute left-5 top-5 w-16"
-        src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Uber_logo_2018.png"
+        src={uberLogo}
         alt="Uber Logo"
       />
 
