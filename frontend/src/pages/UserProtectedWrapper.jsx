@@ -1,19 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserDataContext } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function UserProtectedWrapper({ children }) {
+function UserProtectWrapper({ children }) {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
-
-  const { user, setUser } = React.useContext(UserDataContext);
+  const { user, setUser } = useContext(UserDataContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!token) {
       navigate("/login");
     }
+
     axios
       .get(`${import.meta.env.VITE_BASE_URL}/users/profile`, {
         headers: {
@@ -22,11 +22,12 @@ function UserProtectedWrapper({ children }) {
       })
       .then((response) => {
         if (response.status === 200) {
-          setUser(response.data.user);
+          setUser(response.data);
           setIsLoading(false);
         }
       })
-      .catch((error) => {
+      .catch((err) => {
+        console.log(err);
         localStorage.removeItem("token");
         navigate("/login");
       });
@@ -39,4 +40,4 @@ function UserProtectedWrapper({ children }) {
   return <>{children}</>;
 }
 
-export default UserProtectedWrapper;
+export default UserProtectWrapper;

@@ -1,5 +1,5 @@
 const axios = require("axios");
-require("dotenv").config();
+const captainModel = require("../models/captain.model");
 
 module.exports.getAddressCoordinate = async (address) => {
   const apiKey = process.env.GOOGLE_MAPS_API;
@@ -7,7 +7,6 @@ module.exports.getAddressCoordinate = async (address) => {
 
   try {
     const response = await axios.get(url);
-
     if (response.data.status === "OK") {
       const location = response.data.results[0].geometry.location;
       return {
@@ -51,7 +50,7 @@ module.exports.getDistanceTime = async (origin, destination) => {
 
 module.exports.getAutoCompleteSuggestions = async (input) => {
   if (!input) {
-    throw new Error("Query is required");
+    throw new Error("query is required");
   }
 
   const apiKey = process.env.GOOGLE_MAPS_API;
@@ -70,4 +69,17 @@ module.exports.getAutoCompleteSuggestions = async (input) => {
     console.error(err);
     throw err;
   }
+};
+
+module.exports.getCaptainsInTheRadius = async (ltd, lng, radius) => {
+  // radius in km
+  const captains = await captainModel.find({
+    location: {
+      $geoWithin: {
+        $centerSphere: [[ltd, lng], radius / 6371],
+      },
+    },
+  });
+
+  return captains;
 };

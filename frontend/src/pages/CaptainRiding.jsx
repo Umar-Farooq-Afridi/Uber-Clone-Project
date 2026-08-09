@@ -1,25 +1,31 @@
-import { useRef, useState } from "react";
 import uberLogo from "/uber-logo.svg";
-import { Link } from "react-router-dom";
+import { useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import FinishRide from "../components/FinishRide";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import FinishRide from "../components/FinishRide";
+import LiveTracking from "../components/LiveTracking";
 
 function CaptainRiding() {
   const [finishRidePanel, setFinishRidePanel] = useState(false);
   const finishRidePanelRef = useRef(null);
+  const location = useLocation();
+  const rideData = location.state?.ride;
 
-  useGSAP(() => {
-    if (finishRidePanel) {
-      gsap.to(finishRidePanelRef.current, {
-        y: 0,
-      });
-    } else {
-      gsap.to(finishRidePanelRef.current, {
-        y: "100%",
-      });
-    }
-  }, [finishRidePanel]);
+  useGSAP(
+    function () {
+      if (finishRidePanel) {
+        gsap.to(finishRidePanelRef.current, {
+          transform: "translateY(0)",
+        });
+      } else {
+        gsap.to(finishRidePanelRef.current, {
+          transform: "translateY(100%)",
+        });
+      }
+    },
+    [finishRidePanel],
+  );
 
   return (
     <div className="h-screen relative flex flex-col justify-end">
@@ -41,9 +47,7 @@ function CaptainRiding() {
       >
         <h5
           className="p-1 text-center w-[90%] absolute top-0"
-          onClick={() => {
-            setFinishRidePanel(true);
-          }}
+          onClick={() => {}}
         >
           <i className="text-3xl text-gray-800 ri-arrow-up-wide-line"></i>
         </h5>
@@ -56,11 +60,11 @@ function CaptainRiding() {
         ref={finishRidePanelRef}
         className="fixed w-full z-[500] bottom-0 translate-y-full bg-white px-3 py-10 pt-12"
       >
-        <FinishRide setFinishRidePanel={setFinishRidePanel} />
+        <FinishRide ride={rideData} setFinishRidePanel={setFinishRidePanel} />
       </div>
 
       <div className="h-screen fixed w-screen top-0 z-[-1]">
-        {/* <LiveTracking /> */} Live Tracking
+        <LiveTracking />
       </div>
     </div>
   );

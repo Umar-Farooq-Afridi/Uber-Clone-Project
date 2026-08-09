@@ -2,10 +2,10 @@ function RidePopUp(props) {
   return (
     <div>
       <h5
+        className="p-1 text-center w-[93%] absolute top-0"
         onClick={() => {
           props.setRidePopupPanel(false);
         }}
-        className="p-1 text-center w-[93%] absolute top-0"
       >
         <i className="text-3xl text-gray-200 ri-arrow-down-wide-line"></i>
       </h5>
@@ -18,8 +18,9 @@ function RidePopUp(props) {
             alt=""
           />
           <h2 className="text-lg font-medium">
-            props.ride?.user.fullname.firstname + " " +
-            props.ride?.user.fullname.lastname
+            {props.ride?.user.fullname.firstname +
+              " " +
+              props.ride?.user.fullname.lastname}
           </h2>
         </div>
         <h5 className="text-lg font-semibold">2.2 KM</h5>
@@ -30,7 +31,9 @@ function RidePopUp(props) {
             <i className="ri-map-pin-user-fill"></i>
             <div>
               <h3 className="text-lg font-medium">562/11-A</h3>
-              <p className="text-sm -mt-1 text-gray-600">props.ride?.pickup</p>
+              <p className="text-sm -mt-1 text-gray-600">
+                {props.ride?.pickup}
+              </p>
             </div>
           </div>
           <div className="flex items-center gap-5 p-3 border-b-2">
@@ -38,14 +41,14 @@ function RidePopUp(props) {
             <div>
               <h3 className="text-lg font-medium">562/11-A</h3>
               <p className="text-sm -mt-1 text-gray-600">
-                props.ride?.destination
+                {props.ride?.destination}
               </p>
             </div>
           </div>
           <div className="flex items-center gap-5 p-3">
             <i className="ri-currency-line"></i>
             <div>
-              <h3 className="text-lg font-medium">Rs props.ride?.fare </h3>
+              <h3 className="text-lg font-medium">Rs {props.ride?.fare} </h3>
               <p className="text-sm -mt-1 text-gray-600">Cash Cash</p>
             </div>
           </div>
@@ -53,8 +56,8 @@ function RidePopUp(props) {
         <div className="mt-5 w-full ">
           <button
             onClick={() => {
-              props.setRidePopupPanel(false);
               props.setConfirmRidePopupPanel(true);
+              props.confirmRide();
             }}
             className=" bg-green-600 w-full text-white font-semibold p-2 px-10 rounded-lg"
           >
