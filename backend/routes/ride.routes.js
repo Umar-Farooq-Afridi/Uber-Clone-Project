@@ -21,3 +21,17 @@ router.post(
     .withMessage("Invalid vehicle type"),
   rideController.createRide,
 );
+
+router.get(
+  "/get-fare",
+  authMiddleware.authUser,
+  query("pickup")
+    .isString()
+    .isLength({ min: 3 })
+    .withMessage("Invalid pickup address"),
+  query("destination")
+    .isString()
+    .isLength({ min: 3 })
+    .withMessage("Invalid destination address"),
+  rideController.getFare,
+);

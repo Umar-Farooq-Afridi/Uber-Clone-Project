@@ -1,110 +1,83 @@
 import uberCarImage from "../assets/images/uber-car-image.jpg";
 import uberMotercycleImage from "../assets/images/uber-motercycle-image.png";
 import uberAutoImage from "../assets/images/uber-auto-image.jpg";
-
 function VehiclePanel(props) {
   return (
     <div>
       <h5
-        className="absolute top-0 w-[93%] cursor-pointer p-1 text-center"
-        onClick={() => props.setVehiclePanelOpen(false)}
+        className="p-1 text-center w-[93%] absolute top-0"
+        onClick={() => {
+          props.setVehiclePanel(false);
+        }}
       >
-        <i className="ri-arrow-down-wide-line text-3xl text-gray-400"></i>
+        <i className="text-3xl text-gray-200 ri-arrow-down-wide-line"></i>
       </h5>
-
-      <h3 className="mb-5 text-2xl font-semibold">Choose a Vehicle</h3>
-
-      {/* UberGo */}
+      <h3 className="text-2xl font-semibold mb-5">Choose a Vehicle</h3>
       <div
-        onClick={() => props.setConfirmRidePanel(true)}
-        className="mb-3 flex w-full cursor-pointer items-center justify-between rounded-xl border-2 p-3 transition active:border-black"
+        onClick={() => {
+          props.setConfirmRidePanel(true);
+          props.selectVehicle("car");
+        }}
+        className="flex border-2 active:border-black  mb-2 rounded-xl w-full p-3  items-center justify-between"
       >
-        <div className="flex h-16 w-16 items-center justify-center">
-          <img
-            src={uberCarImage}
-            alt="UberGo"
-            className="h-14 w-14 object-contain"
-          />
-        </div>
-
+        <img className="h-10" src={uberCarImage} alt="" />
         <div className="ml-2 w-1/2">
-          <h4 className="text-base font-medium">
+          <h4 className="font-medium text-base">
             UberGo{" "}
             <span>
-              <i className="ri-user-3-fill"></i> 4
+              <i className="ri-user-3-fill"></i>4
             </span>
           </h4>
-
-          <h5 className="text-sm font-medium">2 mins away</h5>
-
-          <p className="text-xs font-normal text-gray-600">
+          <h5 className="font-medium text-sm">2 mins away </h5>
+          <p className="font-normal text-xs text-gray-600">
             Affordable, compact rides
           </p>
         </div>
-
-        <h2 className="text-lg font-semibold">Rs fare.car</h2>
+        <h2 className="text-lg font-semibold">Rs {props.fare.car}</h2>
       </div>
-
-      {/* Moto */}
       <div
-        onClick={() => props.setConfirmRidePanel(true)}
-        className="mb-3 flex w-full cursor-pointer items-center justify-between rounded-xl border-2 p-3 transition active:border-black"
+        onClick={() => {
+          props.setConfirmRidePanel(true);
+          props.selectVehicle("moto");
+        }}
+        className="flex border-2 active:border-black mb-2 rounded-xl w-full p-3  items-center justify-between"
       >
-        <div className="flex h-16 w-16 items-center justify-center">
-          <img
-            src={uberMotercycleImage}
-            alt="Moto"
-            className="h-14 w-14 object-contain"
-          />
-        </div>
-
-        <div className="ml-2 w-1/2">
-          <h4 className="text-base font-medium">
+        <img className="h-10" src={uberMotercycleImage} alt="" />
+        <div className="-ml-2 w-1/2">
+          <h4 className="font-medium text-base">
             Moto{" "}
             <span>
-              <i className="ri-user-3-fill"></i> 1
+              <i className="ri-user-3-fill"></i>1
             </span>
           </h4>
-
-          <h5 className="text-sm font-medium">3 mins away</h5>
-
-          <p className="text-xs font-normal text-gray-600">
+          <h5 className="font-medium text-sm">3 mins away </h5>
+          <p className="font-normal text-xs text-gray-600">
             Affordable motorcycle rides
           </p>
         </div>
-
-        <h2 className="text-lg font-semibold">Rs fare.moto</h2>
+        <h2 className="text-lg font-semibold">₹{props.fare.moto}</h2>
       </div>
-
-      {/* UberAuto */}
       <div
-        onClick={() => props.setConfirmRidePanel(true)}
-        className="mb-3 flex w-full cursor-pointer items-center justify-between rounded-xl border-2 p-3 transition active:border-black"
+        onClick={() => {
+          props.setConfirmRidePanel(true);
+          props.selectVehicle("auto");
+        }}
+        className="flex border-2 active:border-black mb-2 rounded-xl w-full p-3  items-center justify-between"
       >
-        <div className="flex h-16 w-16 items-center justify-center">
-          <img
-            src={uberAutoImage}
-            alt="UberAuto"
-            className="h-14 w-14 object-contain"
-          />
-        </div>
-
+        <img className="h-10" src={uberAutoImage} alt="" />
         <div className="ml-2 w-1/2">
-          <h4 className="text-base font-medium">
+          <h4 className="font-medium text-base">
             UberAuto{" "}
             <span>
-              <i className="ri-user-3-fill"></i> 3
+              <i className="ri-user-3-fill"></i>3
             </span>
           </h4>
-
-          <h5 className="text-sm font-medium">3 mins away</h5>
-
-          <p className="text-xs font-normal text-gray-600">
-            Affordable auto rides
+          <h5 className="font-medium text-sm">3 mins away </h5>
+          <p className="font-normal text-xs text-gray-600">
+            Affordable Auto rides
           </p>
         </div>
-
-        <h2 className="text-lg font-semibold">Rs fare.auto</h2>
+        <h2 className="text-lg font-semibold">Rs {props.fare.auto}</h2>
       </div>
     </div>
   );

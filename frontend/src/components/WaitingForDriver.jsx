@@ -1,13 +1,12 @@
 import uberCarImage from "../assets/images/uber-car-image.jpg";
-
 function WaitingForDriver(props) {
   return (
     <div>
       <h5
-        onClick={() => {
-          props.setWaitingForDriver(false);
-        }}
         className="p-1 text-center w-[93%] absolute top-0"
+        onClick={() => {
+          props.waitingForDriver(false);
+        }}
       >
         <i className="text-3xl text-gray-200 ri-arrow-down-wide-line"></i>
       </h5>
@@ -16,13 +15,13 @@ function WaitingForDriver(props) {
         <img className="h-12" src={uberCarImage} alt="" />
         <div className="text-right">
           <h2 className="text-lg font-medium capitalize">
-            props.ride?.captain.fullname.firstname
+            {props.ride?.captain.fullname.firstname}
           </h2>
           <h4 className="text-xl font-semibold -mt-1 -mb-1">
-            props.ride?.captain.vehicle.plate
+            {props.ride?.captain.vehicle.plate}
           </h4>
-          <p className="text-sm text-gray-600">Maruti Suzuki Alto</p>
-          <h1 className="text-lg font-semibold"> props.ride?.otp </h1>
+          <p className="text-sm text-gray-600">Suzuki Alto</p>
+          <h1 className="text-lg font-semibold"> {props.ride?.otp} </h1>
         </div>
       </div>
 
@@ -32,7 +31,9 @@ function WaitingForDriver(props) {
             <i className="ri-map-pin-user-fill"></i>
             <div>
               <h3 className="text-lg font-medium">562/11-A</h3>
-              <p className="text-sm -mt-1 text-gray-600">props.ride?.pickup</p>
+              <p className="text-sm -mt-1 text-gray-600">
+                {props.ride?.pickup}
+              </p>
             </div>
           </div>
           <div className="flex items-center gap-5 p-3 border-b-2">
@@ -40,14 +41,14 @@ function WaitingForDriver(props) {
             <div>
               <h3 className="text-lg font-medium">562/11-A</h3>
               <p className="text-sm -mt-1 text-gray-600">
-                props.ride?.destination
+                {props.ride?.destination}
               </p>
             </div>
           </div>
           <div className="flex items-center gap-5 p-3">
             <i className="ri-currency-line"></i>
             <div>
-              <h3 className="text-lg font-medium">Rs props.ride?.fare </h3>
+              <h3 className="text-lg font-medium">Rs {props.ride?.fare} </h3>
               <p className="text-sm -mt-1 text-gray-600">Cash Cash</p>
             </div>
           </div>
