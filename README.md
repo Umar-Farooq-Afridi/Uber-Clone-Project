@@ -119,11 +119,8 @@ npm run dev
 - GitHub: [@Umar-Farooq-Afridi](https://github.com/Umar-Farooq-Afridi)
 - Portfolio: [umar-farooq-portfolio.vercel.app](https://umar-farooq-portfolio.vercel.app)
 
-## 📄 License
 
-This project is licensed under the ISC License.
-
-# Backend API Documentation
+## Backend API Documentation
 
 ## `/users/register` Endpoint
 
