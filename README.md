@@ -1,3 +1,128 @@
+# Uber Clone (MERN Stack)
+
+A full-stack ride-booking app inspired by Uber. Users can search locations, see fare estimates, and request a ride, while captains (drivers) receive requests in real time, accept them, verify the ride with an OTP, and complete the trip with live tracking.
+
+## Features
+
+**User**
+- Register, login, and logout with JWT authentication
+- Location search with Google Maps autocomplete suggestions
+- Fare estimates for auto, car, and moto based on distance and time
+- Request a ride and get live updates when a captain accepts
+- Live tracking on Google Maps during the ride
+
+**Captain**
+- Separate captain registration with vehicle details (color, plate, capacity, type)
+- Receive new ride requests instantly via Socket.io
+- Confirm rides and start them using a 6-digit OTP
+- End ride and view ride details
+
+**General**
+- Real-time communication between users and captains using Socket.io
+- Protected routes with token blacklisting on logout
+- Input validation with express-validator
+- Smooth animated UI with GSAP
+
+## Tech Stack
+
+| Layer | Technologies |
+|---|---|
+| Frontend | React 19, Vite, Tailwind CSS, React Router, GSAP, Axios |
+| Maps | Google Maps API (`@react-google-maps/api`) |
+| Real-time | Socket.io, Socket.io Client |
+| Backend | Node.js, Express 5, MongoDB, Mongoose |
+| Auth | JSON Web Tokens (JWT), bcrypt, cookie-parser |
+| Validation | express-validator |
+
+## Project Structure
+
+```
+Uber-Clone-Project/
+├── frontend/     # React client (user + captain interfaces)
+└── backend/      # Express API + Socket.io server
+```
+
+## Getting Started
+
+### Prerequisites
+- Node.js installed
+- A MongoDB database (local or Atlas)
+- A Google Maps API key (Geocoding, Distance Matrix, Places, and Maps JavaScript APIs enabled)
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/Umar-Farooq-Afridi/Uber-Clone-Project.git
+cd Uber-Clone-Project
+```
+
+### 2. Backend setup
+```bash
+cd backend
+npm install
+```
+
+Create a `.env` file in `backend/`:
+```
+PORT=3000
+DB_Connect=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+GOOGLE_MAPS_API=your_google_maps_api_key
+```
+
+Run the backend:
+```bash
+npm run dev
+```
+
+### 3. Frontend setup
+```bash
+cd ../frontend
+npm install
+```
+
+Create a `.env` file in `frontend/`:
+```
+VITE_API_URL=http://localhost:3000
+VITE_BASE_URL=http://localhost:3000
+VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+```
+
+Run the frontend:
+```bash
+npm run dev
+```
+
+## API Endpoints
+
+| Route | Method | Description | Auth |
+|---|---|---|---|
+| /users/register | POST | Register a new user | Public |
+| /users/login | POST | Login user | Public |
+| /users/profile | GET | Get logged-in user's profile | User |
+| /users/logout | GET | Logout user | User |
+| /captains/register | POST | Register a new captain with vehicle details | Public |
+| /captains/login | POST | Login captain | Public |
+| /captains/profile | GET | Get logged-in captain's profile | Captain |
+| /captains/logout | GET | Logout captain | Captain |
+| /maps/get-coordinates | GET | Get coordinates for an address | User |
+| /maps/get-distance-time | GET | Get distance and travel time between two places | User |
+| /maps/get-suggestions | GET | Location autocomplete suggestions | User |
+| /rides/create | POST | Create a new ride request | User |
+| /rides/get-fare | GET | Get fare estimate for all vehicle types | User |
+| /rides/confirm | POST | Captain accepts a ride | Captain |
+| /rides/start-ride | GET | Start ride after OTP verification | Captain |
+| /rides/end-ride | POST | End the ride | Captain |
+
+## Author
+
+**Umar Farooq: Software Engineer | Web Developer | MERN Stack Developer**
+- GitHub: [@Umar-Farooq-Afridi](https://github.com/Umar-Farooq-Afridi)
+- Portfolio: [umar-farooq-portfolio.vercel.app](https://umar-farooq-portfolio.vercel.app)
+
+## 📄 License
+
+This project is licensed under the ISC License.
+
 # Backend API Documentation
 
 ## `/users/register` Endpoint
